@@ -21,9 +21,31 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: ProductListScreen(),
+      home: HomeScreen(), // home: ProductListScreen(),
     );
   }
+}
+//dinh nghia HomeScreen
+class HomeScreen extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Trang chu"),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: (){
+            Navigator.push(context,
+              MaterialPageRoute(builder: (context)=>ProductListScreen()),);
+          },
+          child: Text('Go to ProductListScreen'),
+        ),
+      ),
+    );
+
+  }
+
 }
 class ProductListScreen extends StatefulWidget {
   @override
@@ -71,39 +93,39 @@ class _ProductListScreenState extends State<ProductListScreen>{
     }
   }
 //---
-@override
+  @override
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
         title: Text('Danh sach san pham'),
       ),
       body: product!=null ?
-          ListView.builder(
-            itemCount: product.length,
-            itemBuilder: (context,index){
-              return ListTile(
-                title: Text(product[index].brands_filter_facet),
-                subtitle: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Price: ${product[index].price}'),
-                    Text('product_additional_info: ${product[index].product_additional_info}'),
-                  ],
-                ),
-                leading: Image.network(
-                  product[index].search_image,
-                  width: 50,
-                  height: 50,
-                  fit: BoxFit.cover,
-                )
-              );
-            },
-          )
+      ListView.builder(
+        itemCount: product.length,
+        itemBuilder: (context,index){
+          return ListTile(
+              title: Text(product[index].brands_filter_facet),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Price: ${product[index].price}'),
+                  Text('product_additional_info: ${product[index].product_additional_info}'),
+                ],
+              ),
+              leading: Image.network(
+                product[index].search_image,
+                width: 50,
+                height: 50,
+                fit: BoxFit.cover,
+              )
+          );
+        },
+      )
           :Center(
-            child: CircularProgressIndicator(),
+        child: CircularProgressIndicator(),
       ),
     );
-}
+  }
 }
 //--
 class Product{
@@ -119,4 +141,4 @@ class Product{
     required this.price,
     required this.product_additional_info});
 }
-    //-----
+//-----
